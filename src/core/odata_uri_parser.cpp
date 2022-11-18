@@ -1013,7 +1013,7 @@ std::vector<std::shared_ptr<::odata::core::odata_select_item>> odata_query_optio
 		lexer->next_token();
 	}
     
-    return std::move(items);
+    return items;
 }
 
 std::vector<std::shared_ptr<::odata::core::odata_expand_item>> odata_query_option_parser::parse_expand(
@@ -1103,7 +1103,7 @@ std::vector<std::shared_ptr<::odata::core::odata_expand_item>> odata_query_optio
 		lexer->next_token();
 	}
     
-    return std::move(items);
+    return items;
 }
 
 // --END-- odata_query_option_parser
@@ -1467,7 +1467,7 @@ std::shared_ptr<::odata::core::odata_primitive_value> odata_expression_lexer::ea
 
 	next_token();
 
-	return std::move(text);
+	return text;
 }
 
 void odata_expression_lexer::next_char()
@@ -2460,7 +2460,7 @@ std::map<::odata::utility::string_t, ::odata::utility::string_t> odata_uri_parse
 	value = query.substr(token_start);
 	options.insert(std::make_pair(std::move(name), std::move(value)));
 
-	return std::move(options);
+	return options;
 }
 
 std::shared_ptr<odata_path_parser> odata_uri_parser::path_parser()

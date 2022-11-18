@@ -68,9 +68,9 @@
 #endif
 #endif
 
-#if NEEDS_NULLPTR_DEFINED
-#define nullptr NULL
-#endif
+//#if NEEDS_NULLPTR_DEFINED
+//#define nullptr NULL
+//#endif
 
 
 #ifndef C_ASSERT
@@ -1136,7 +1136,7 @@ public:
     }
 
     template < typename E >
-    static void CastThrow( bool b, T& t )
+    static void CastThrow( [[maybe_unused]]bool b, T& t )
     {
         b = !!t;
     }
@@ -2747,7 +2747,8 @@ public:
     // T, U are unsigned __int64 
     static bool Multiply( const T& t, const U& u, T& ret ) throw()
     {
-        C_ASSERT( IntTraits<T>::isUint64 && IntTraits<U>::isUint64 );
+        //C_ASSERT( IntTraits<T>::isUint64 && IntTraits<U>::isUint64 );
+        static_assert(IntTraits<T>::isUint64 && IntTraits<U>::isUint64);
         unsigned __int64 t1 = t;
         unsigned __int64 u1 = u;
         return LargeIntRegMultiply< unsigned __int64, unsigned __int64 >::RegMultiply( t1, u1, reinterpret_cast<unsigned __int64*>(&ret) );
@@ -2756,7 +2757,7 @@ public:
     template < typename E >
     static void MultiplyThrow(const unsigned __int64& t, const unsigned __int64& u, T& ret)
     {
-        C_ASSERT( IntTraits<T>::isUint64 && IntTraits<U>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isUint64 && IntTraits<U>::isUint64 );
         unsigned __int64 t1 = t;
         unsigned __int64 u1 = u;
         LargeIntRegMultiply< unsigned __int64, unsigned __int64 >::template RegMultiplyThrow< E >( t1, u1, reinterpret_cast<unsigned __int64*>(&ret) );
@@ -2770,7 +2771,7 @@ public:
     // U is any unsigned int 32-bit or less
     static bool Multiply( const T& t, const U& u, T& ret ) throw()
     {
-        C_ASSERT( IntTraits<T>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isUint64 );
         unsigned __int64 t1 = t;
         return LargeIntRegMultiply< unsigned __int64, unsigned __int32 >::RegMultiply( t1, (unsigned __int32)u, reinterpret_cast<unsigned __int64*>(&ret) );
     }
@@ -2778,7 +2779,7 @@ public:
     template < typename E >
     static void MultiplyThrow( const T& t, const U& u, T& ret )
     {
-        C_ASSERT( IntTraits<T>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isUint64 );
         unsigned __int64 t1 = t;
         LargeIntRegMultiply< unsigned __int64, unsigned __int32 >::template RegMultiplyThrow< E >( t1, (unsigned __int32)u, reinterpret_cast<unsigned __int64*>(&ret) );
     }
@@ -2792,7 +2793,7 @@ public:
     // U is unsigned __int64
     static bool Multiply(const T& t, const U& u, T& ret) throw()
     {
-        C_ASSERT( IntTraits<U>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isUint64 );
         unsigned __int64 u1 = u;
         unsigned __int32 tmp;
 
@@ -2808,7 +2809,7 @@ public:
     template < typename E >
     static void MultiplyThrow(const T& t, const U& u, T& ret)
     {
-        C_ASSERT( IntTraits<U>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isUint64 );
         unsigned __int64 u1 = u;
         unsigned __int32 tmp;
 
@@ -2824,7 +2825,7 @@ public:
     // U is any signed int, up to 64-bit
     static bool Multiply(const T& t, const U& u, T& ret) throw()
     {
-        C_ASSERT( IntTraits<T>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isUint64 );
         unsigned __int64 t1 = t;
         return LargeIntRegMultiply< unsigned __int64, signed __int32 >::RegMultiply(t1, (signed __int32)u, reinterpret_cast< unsigned __int64* >(&ret));
     }
@@ -2832,7 +2833,7 @@ public:
     template < typename E >
     static void MultiplyThrow(const T& t, const U& u, T& ret)
     {
-        C_ASSERT( IntTraits<T>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isUint64 );
         unsigned __int64 t1 = t;
         LargeIntRegMultiply< unsigned __int64, signed __int32 >::template RegMultiplyThrow< E >(t1, (signed __int32)u, reinterpret_cast< unsigned __int64* >(&ret));
     }
@@ -2845,7 +2846,7 @@ public:
     // U is __int64
     static bool Multiply(const T& t, const U& u, T& ret) throw()
     {
-        C_ASSERT( IntTraits<T>::isUint64 && IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isUint64 && IntTraits<U>::isInt64 );
         unsigned __int64 t1 = t;
         __int64          u1 = u;
         return LargeIntRegMultiply< unsigned __int64, __int64 >::RegMultiply(t1, u1, reinterpret_cast< unsigned __int64* >(&ret));
@@ -2854,7 +2855,7 @@ public:
     template < typename E >
     static void MultiplyThrow(const T& t, const U& u, T& ret)
     {
-        C_ASSERT( IntTraits<T>::isUint64 && IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isUint64 && IntTraits<U>::isInt64 );
         unsigned __int64 t1 = t;
         __int64          u1 = u;
         LargeIntRegMultiply< unsigned __int64, __int64 >::template RegMultiplyThrow< E >(t1, u1, reinterpret_cast< unsigned __int64* >(&ret));
@@ -2868,7 +2869,7 @@ public:
     // U is __int64
     static bool Multiply(const T& t, const U& u, T& ret) throw()
     {
-        C_ASSERT( IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isInt64 );
         __int64          u1 = u;
         unsigned __int32 tmp;
 
@@ -2884,7 +2885,7 @@ public:
     template < typename E >
     static void MultiplyThrow(const T& t, const U& u, T& ret)
     {
-        C_ASSERT( IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isInt64 );
         __int64          u1 = u;
         unsigned __int32 tmp;
 
@@ -2900,7 +2901,7 @@ public:
     // U is unsigned up to 32-bit
     static bool Multiply( const T& t, const U& u, T& ret ) throw()
     {
-        C_ASSERT( IntTraits<T>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 );
         __int64          t1 = t;
         return LargeIntRegMultiply< __int64, unsigned __int32 >::RegMultiply( t1, (unsigned __int32)u, reinterpret_cast< __int64* >(&ret) );
     }
@@ -2908,7 +2909,7 @@ public:
     template < typename E >
     static void MultiplyThrow( const T& t, const U& u, T& ret )
     {
-        C_ASSERT( IntTraits<T>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 );
         __int64          t1 = t;
         LargeIntRegMultiply< __int64, unsigned __int32 >::template RegMultiplyThrow< E >( t1, (unsigned __int32)u, reinterpret_cast< __int64* >(&ret) );
     }
@@ -2920,7 +2921,7 @@ public:
     // T, U are __int64
     static bool Multiply( const T& t, const U& u, T& ret ) throw()
     {
-        C_ASSERT( IntTraits<T>::isInt64 && IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 && IntTraits<U>::isInt64 );
         __int64          t1 = t;
         __int64          u1 = u;
         return LargeIntRegMultiply< __int64, __int64 >::RegMultiply( t1, u1, reinterpret_cast< __int64* >(&ret) );
@@ -2929,7 +2930,7 @@ public:
     template < typename E >
     static void MultiplyThrow( const T& t, const U& u, T& ret )
     {
-        C_ASSERT( IntTraits<T>::isInt64 && IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 && IntTraits<U>::isInt64 );
         __int64          t1 = t;
         __int64          u1 = u;
         LargeIntRegMultiply< __int64, __int64 >::template RegMultiplyThrow< E >( t1, u1, reinterpret_cast< __int64* >(&ret));
@@ -2943,7 +2944,7 @@ public:
     // U is signed up to 32-bit
     static bool Multiply( const T& t, U u, T& ret ) throw()
     {
-        C_ASSERT( IntTraits<T>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 );
         __int64          t1 = t;
         return LargeIntRegMultiply< __int64, __int32 >::RegMultiply( t1, (__int32)u, reinterpret_cast< __int64* >(&ret));
     }
@@ -2951,7 +2952,7 @@ public:
     template < typename E >
     static void MultiplyThrow( const __int64& t, U u, T& ret )
     {
-        C_ASSERT( IntTraits<T>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 );
         __int64          t1 = t;
         LargeIntRegMultiply< __int64, __int32 >::template RegMultiplyThrow< E >(t1, (__int32)u, reinterpret_cast< __int64* >(&ret));
     }
@@ -2964,7 +2965,7 @@ public:
     // U is unsigned __int64
     static bool Multiply(T t, const U& u, T& ret) throw()
     {
-        C_ASSERT( IntTraits<U>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isUint64 );
         unsigned __int64 u1 = u;
         __int32 tmp;
 
@@ -2980,7 +2981,7 @@ public:
     template < typename E >
     static void MultiplyThrow(T t, const unsigned __int64& u, T& ret)
     {
-        C_ASSERT( IntTraits<U>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isUint64 );
         unsigned __int64 u1 = u;
         __int32 tmp;
 
@@ -2996,7 +2997,7 @@ public:
     // U is unsigned __int64
     static bool Multiply( const T& t, const U& u, T& ret ) throw()
     {
-        C_ASSERT( IntTraits<T>::isInt64 && IntTraits<U>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 && IntTraits<U>::isUint64 );
         __int64          t1 = t;
         unsigned __int64 u1 = u;
         return LargeIntRegMultiply< __int64, unsigned __int64 >::RegMultiply( t1, u1, reinterpret_cast< __int64* >(&ret) );
@@ -3005,7 +3006,7 @@ public:
     template < typename E >
     static void MultiplyThrow( const __int64& t, const unsigned __int64& u, T& ret )
     {
-        C_ASSERT( IntTraits<T>::isInt64 && IntTraits<U>::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<T>::isInt64 && IntTraits<U>::isUint64 );
         __int64          t1 = t;
         unsigned __int64 u1 = u;
         LargeIntRegMultiply< __int64, unsigned __int64 >::template RegMultiplyThrow< E >( t1, u1, reinterpret_cast< __int64* >(&ret) );
@@ -3019,7 +3020,7 @@ public:
     // U is __int64
     static bool Multiply( T t, const U& u, T& ret ) throw()
     {
-        C_ASSERT( IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isInt64 );
         __int64 u1 = u;
         __int32 tmp;
 
@@ -3035,7 +3036,7 @@ public:
     template < typename E >
     static void MultiplyThrow(T t, const U& u, T& ret)
     {
-        C_ASSERT( IntTraits<U>::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits<U>::isInt64 );
         __int64 u1 = u;
         __int32 tmp;
 
@@ -3225,7 +3226,7 @@ template < typename T, typename U > class DivisionHelper< T, U, DivisionState_Si
 public:
     static SafeIntError Divide( const T& t, const unsigned __int64& u, T& result ) throw()
     {
-        C_ASSERT( IntTraits< U >::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< U >::isUint64 );
 
         if( u == 0 )
         {
@@ -3262,7 +3263,7 @@ public:
     template < typename E >
     static void DivideThrow( const T& t, const unsigned __int64& u, T& result )
     {
-        C_ASSERT( IntTraits< U >::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< U >::isUint64 );
 
         if( u == 0 )
         {
@@ -3963,7 +3964,7 @@ template < typename T, typename U > class AdditionHelper < T, U, AdditionState_M
 public:
     static bool Addition( const __int64& lhs, const unsigned __int64& rhs, __int64& result ) throw()
     {
-        C_ASSERT( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
         // rhs is unsigned __int64, lhs __int64
         // cast everything to unsigned, perform addition, then 
         // cast back for check - this is done to stop optimizers from removing the code
@@ -3981,7 +3982,7 @@ public:
     template < typename E >
     static void AdditionThrow( const __int64& lhs, const unsigned __int64& rhs, T& result )
     {
-        C_ASSERT( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
         // rhs is unsigned __int64, lhs __int64
         unsigned __int64 tmp = (unsigned __int64)lhs + rhs;
 
@@ -5083,7 +5084,7 @@ template < typename T, typename U > class SubtractionHelper< T, U, SubtractionSt
 public:
     static bool Subtract( const __int64& lhs, const unsigned __int64& rhs, __int64& result ) throw()
     {
-        C_ASSERT( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
         // if we subtract, and it gets larger, there's a problem
         // Perform test as unsigned to prevent unwanted optimizations
         unsigned __int64 tmp = (unsigned __int64)lhs - rhs;
@@ -5099,7 +5100,7 @@ public:
     template < typename E >
     static void SubtractThrow( const __int64& lhs, const unsigned __int64& rhs, T& result )
     {
-        C_ASSERT( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< T >::isInt64 && IntTraits< U >::isUint64 );
         // if we subtract, and it gets larger, there's a problem
         // Perform test as unsigned to prevent unwanted optimizations
         unsigned __int64 tmp = (unsigned __int64)lhs - rhs;
@@ -5122,7 +5123,7 @@ public:
     // get smaller. If rhs > lhs, then it would also go negative, which is the other case
     static bool Subtract( const __int64& lhs, const unsigned __int64& rhs, T& result ) throw()
     {
-        C_ASSERT( IntTraits< T >::isUint64 && IntTraits< U >::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< T >::isUint64 && IntTraits< U >::isInt64 );
         if( lhs >= 0 && (unsigned __int64)lhs >= rhs )
         {
             result = (unsigned __int64)lhs - rhs;
@@ -5135,7 +5136,7 @@ public:
     template < typename E >
     static void SubtractThrow( const __int64& lhs, const unsigned __int64& rhs, T& result )
     {
-        C_ASSERT( IntTraits< T >::isUint64 && IntTraits< U >::isInt64 );
+        /* nd - replace C_ASSERT to */static_assert( IntTraits< T >::isUint64 && IntTraits< U >::isInt64 );
         if( lhs >= 0 && (unsigned __int64)lhs >= rhs )
         {
             result = (unsigned __int64)lhs - rhs;
@@ -5388,7 +5389,7 @@ template < typename T, typename E = SafeIntDefaultExceptionHandler > class SafeI
 public:
     SafeInt() throw()
     {
-        C_ASSERT( NumericType< T >::isInt );
+        /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         m_int = 0;
     }
 
@@ -5397,7 +5398,7 @@ public:
     // e.g., SafeInt<char> s = 0x7fffffff;
     SafeInt( const T& i ) throw()
     {
-        C_ASSERT( NumericType< T >::isInt );
+        /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         //always safe
         m_int = i;
     }
@@ -5405,21 +5406,21 @@ public:
     // provide explicit boolean converter
     SafeInt( bool b ) throw()
     {
-        C_ASSERT( NumericType< T >::isInt );
+        /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         m_int = (T)( b ? 1 : 0 );
     }
 
     template < typename U > 
     SafeInt(const SafeInt< U, E >& u)
     {
-        C_ASSERT( NumericType< T >::isInt );
+        /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         *this = SafeInt< T, E >( (U)u );
     }
 
     template < typename U > 
     SafeInt( const U& i )
     {
-        C_ASSERT( NumericType< T >::isInt );
+        /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         // SafeCast will throw exceptions if i won't fit in type T
         SafeCastHelper< T, U, GetCastMethod< T, U >::method >::template CastThrow< E >( i, m_int );
     }
@@ -6773,7 +6774,7 @@ T*& operator *=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 
@@ -6782,7 +6783,7 @@ T*& operator /=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 
@@ -6791,7 +6792,7 @@ T*& operator %=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 
@@ -6800,7 +6801,7 @@ T*& operator &=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 
@@ -6809,7 +6810,7 @@ T*& operator ^=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 
@@ -6818,7 +6819,7 @@ T*& operator |=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 
@@ -6827,7 +6828,7 @@ T*& operator <<=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 
@@ -6836,7 +6837,7 @@ T*& operator >>=( T*& lhs, SafeInt< U, E > rhs )
 {
     (rhs);
     // This operator explicitly not supported
-    C_ASSERT( sizeof(T) == 0 );
+    /* nd - replace C_ASSERT to */static_assert( sizeof(T) == 0 );
     return (lhs = NULL);
 }
 

@@ -46,6 +46,9 @@
 #include <iostream>
 #include "odata/common/basic_types.h"
 
+
+#define convert_to_xmlchar(b) const_cast<unsigned char*>(reinterpret_cast<const unsigned char*>(std::move(b)));
+
 namespace odata { namespace edm {
 
 /// <summary>
