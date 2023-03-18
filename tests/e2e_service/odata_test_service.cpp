@@ -77,13 +77,11 @@ void odata_test_service::handle_get(http_request message)
 
 		odata_message_writer writer(m_model, m_service_root);
 		::odata::utility::string_t content;
-		if (parsed_uri->is_service_document())
-		{
+		if (parsed_uri->is_service_document()){
 			// Write service document
 			content = writer.write_service_document(m_service_document);
 		}
-		else if (parsed_uri->is_metadata_document())
-		{
+		else if (parsed_uri->is_metadata_document()){
 			// Write metadata document
 			content = writer.write_metadata_document();
 		}

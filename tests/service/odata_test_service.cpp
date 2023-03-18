@@ -37,13 +37,11 @@ namespace odata { namespace service
         }
     }
 
-    pplx::task<void> odata_test_service::open()
-    {
+    pplx::task<void> odata_test_service::open(){
         return m_listener.open().then(std::bind(&handle_error, std::placeholders::_1));
     }
 
-    pplx::task<void> odata_test_service::close()
-    {
+    pplx::task<void> odata_test_service::close(){
         return m_listener.close().then(std::bind(&handle_error, std::placeholders::_1));
     }
 

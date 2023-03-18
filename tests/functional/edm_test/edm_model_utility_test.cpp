@@ -55,7 +55,7 @@ TEST(get_edm_primitive_type_from_name)
 	}
 }
 
-TEST(get_edm_primitive_type_from_name_nagative_case)
+TEST( )
 {
 	auto return_type = edm_model_utility::get_edm_primitive_type_from_name(U(""));
 	VERIFY_IS_NULL(return_type);

@@ -257,21 +257,18 @@ TEST(resource_not_found)
 	VERIFY_THROWS(parser.parse_path(U("/People1(1)")), odata_exception);
 }
 
-TEST(key_count_mismatch)
-{
+TEST(key_count_mismatch){
 	odata_uri_parser parser(get_test_model_with_person_with_two_keys());
     
 	VERIFY_THROWS(parser.parse_path(U("/People(ID1=123)")), odata_exception);
 }
 
-static void verify_entity_set_segment(std::shared_ptr<odata_path_segment> segment, const ::odata::utility::string_t &name, const ::odata::utility::string_t &type)
-{
+static void verify_entity_set_segment(std::shared_ptr<odata_path_segment> segment, const ::odata::utility::string_t &name, const ::odata::utility::string_t &type){
 	VERIFY_ARE_EQUAL(name, segment->as<odata_entity_set_segment>()->entity_set()->get_name());
 	VERIFY_ARE_EQUAL(type, segment->as<odata_entity_set_segment>()->entity_type()->get_name());
 }
 
-static void verify_singleton_segment(std::shared_ptr<odata_path_segment> segment, const ::odata::utility::string_t &name, const ::odata::utility::string_t &type)
-{
+static void verify_singleton_segment(std::shared_ptr<odata_path_segment> segment, const ::odata::utility::string_t &name, const ::odata::utility::string_t &type){
 	VERIFY_ARE_EQUAL(name, segment->as<odata_singleton_segment>()->singleton()->get_name());
 	VERIFY_ARE_EQUAL(type, segment->as<odata_singleton_segment>()->entity_type()->get_name());
 }
@@ -601,15 +598,13 @@ TEST(bind_navigation_property_with_key)
     verify_key_segment(path->segment_at(3), U("ID"), U("3"));
 }
 
-TEST(no_navigation_source)
-{
+TEST(no_navigation_source){
     odata_uri_parser parser(get_test_model_with_person_with_one_key());
     
 	VERIFY_THROWS(parser.parse_path(U("/People(1)/Friends(3)")), odata_exception);
 }
 
-TEST(bind_contained_navigation_property_without_key)
-{
+TEST(bind_contained_navigation_property_without_key){
     odata_uri_parser parser(get_test_model_with_person_with_one_key());
 	auto path = parser.parse_path(U("/People(1)/Brothers"));
     

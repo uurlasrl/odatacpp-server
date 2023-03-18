@@ -67,12 +67,11 @@ TEST(entities_test)
 	VERIFY_IS_NOT_NULL(json_reader);
 
     ::odata::utility::string_t _entity_payload = U(
-	   "{\"@odata.context\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/$metadata#Departments\", \
-		\"value\":[{\"@odata.id\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(1)\", \
-		\"@odata.editLink\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(1)\", \
-		\"DepartmentID\":1,\"Name\":\"D1\"},{\"@odata.id\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(2)\", \
-		\"@odata.editLink\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(2)\", \
-		\"DepartmentID\":2,\"Name\":\"D2\"}]}"
+	   "{\"@odata.context\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/$metadata#Departments\",\"value\":\
+            [\
+                {\"@odata.id\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(1)\", \"@odata.editLink\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(1)\", \"DepartmentID\":1,\"Name\":\"D1\"}, \
+                {\"@odata.id\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(2)\", \"@odata.editLink\":\"http://odatae2etest.azurewebsites.net/cpptest/DefaultService/Departments(2)\", \"DepartmentID\":2,\"Name\":\"D2\"}"
+       "    ]}"
 		);
 
 	odata::utility::json::value json_payload = odata::utility::json::value::parse(_entity_payload);

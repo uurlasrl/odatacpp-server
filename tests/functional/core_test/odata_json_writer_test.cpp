@@ -59,8 +59,7 @@ const static map_type test_data_map(init_test_values, init_test_values + 22);
 static bool check_writer_result(const ::odata::utility::string_t& check_key, const ::odata::utility::string_t& check_value)
 {
 	auto find_iter = test_data_map.find(check_key);
-	if (find_iter != test_data_map.end())
-	{
+	if (find_iter != test_data_map.end()){
 		return find_iter->second == check_value ? true : false;
 	}
 
