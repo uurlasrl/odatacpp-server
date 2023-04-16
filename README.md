@@ -88,6 +88,14 @@ Currently the following target platforms are supported:
 
 5.Please find your built libraries under 'output'.
 
+Ho modificato il CMAkeList.txt rendendo le seguenti variabili globali  
+
+~~~
+ODATACPP_LIBRARY  
+ODATACPP_INCLUDE_DIR
+~~~
+
+
 ### Running tests on OS X
 
 After successfully building the libraries, you can run the functional and end-to-end tests via the terminal.
@@ -124,4 +132,4 @@ After successfully building the libraries, you can run the functional and end-to
 To report bugs and require features, please use our [issue tracker](https://github.com/odata/odatacpp-server/issues?state=open).
 
 ## Team blog
-Please visit http://blogs.msdn.com/b/odatateam/.
+Please visit [link](http://blogs.msdn.com/b/odatateam/).
