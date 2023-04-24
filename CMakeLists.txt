@@ -59,15 +59,16 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/output)
 
 # These settings can be used by the test targets
 set(ODATACPP_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(ODATACPP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(ODATACPP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "include ODATA")
 set(ODATACPP_INCLUDE_DIRS ${ODATACPP_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${LIBXML2_INCLUDE_DIR})
 set(ODATACPP_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 
 # OData library targets
-set(ODATACPP_LIBRARY ${LIB}odata-library)
+set(ODATACPP_LIBRARY ${LIB}odata-library CACHE INTERNAL "library ODATA")
 
 # Everything in the project needs access to the odatacpp include directories
 include_directories(${ODATACPP_INCLUDE_DIRS})
 
 add_subdirectory(src)
+
 add_subdirectory(tests)
