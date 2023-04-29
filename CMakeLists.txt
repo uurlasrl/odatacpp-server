@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
+
 enable_testing()
 
 set(WARNINGS)
@@ -58,37 +59,16 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/output)
 
 # These settings can be used by the test targets
 set(ODATACPP_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-set(ODATACPP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "OData include dir")
+set(ODATACPP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "include ODATA")
 set(ODATACPP_INCLUDE_DIRS ${ODATACPP_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${LIBXML2_INCLUDE_DIR})
 set(ODATACPP_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 
 # OData library targets
-set(ODATACPP_LIBRARY ${LIB}odata-library CACHE INTERNAL "OData cpp Library" )
+set(ODATACPP_LIBRARY ${LIB}odata-library CACHE INTERNAL "library ODATA")
 
 # Everything in the project needs access to the odatacpp include directories
 include_directories(${ODATACPP_INCLUDE_DIRS})
 
-## final output directory
-#MESSAGE(STATUS "** ini dentro **")
-##get_cmake_property(_variableNames VARIABLES)
-##foreach (_variableName ${_variableNames})
-##  message(STATUS "${_variableName}=${${_variableName}}")
-##endforeach()
-#get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-#foreach(dir ${dirs})
-#  message(STATUS "dir='${dir}'")
-#endforeach()
-##MESSAGE(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY = ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-##MESSAGE(STATUS "CMAKE_LIBRARY_OUTPUT_DIRECTORY = ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
-##MESSAGE(STATUS "CMAKE_ARCHIVE_OUTPUT_DIRECTORY = ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
-##MESSAGE(STATUS "ODATACPP_LIB_DIR = ${ODATACPP_LIB_DIR}")
-##MESSAGE(STATUS "ODATACPP_INCLUDE_DIR = ${ODATACPP_INCLUDE_DIR}")
-##MESSAGE(STATUS "ODATACPP_INCLUDE_DIRS = ${ODATACPP_INCLUDE_DIRS}")
-##MESSAGE(STATUS "ODATACPP_TEST_DIR = ${ODATACPP_TEST_DIR}")
-##MESSAGE(STATUS "ODATACPP_LIBRARY = ${ODATACPP_LIBRARY}")
-#MESSAGE(STATUS "** fin dentro **")
-
-
-
 add_subdirectory(src)
+
 add_subdirectory(tests)
