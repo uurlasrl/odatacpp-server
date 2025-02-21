@@ -233,12 +233,14 @@ public:
     /// <summary>
     /// Constructor
     /// </summary>
-    edm_property_type() : m_is_nullable(true), m_is_unicode(false), m_maxLength(undefined_value), m_scale(0), m_precision(undefined_value)
+    // nd change m_is_unicode(true)
+    edm_property_type() : m_is_nullable(true), m_is_unicode(true), m_maxLength(undefined_value), m_scale(0), m_precision(undefined_value)
     {
     }
 
 	edm_property_type(const ::odata::utility::string_t& name) : m_name(name), 
-		m_is_nullable(true), m_is_unicode(false), m_maxLength(undefined_value), m_scale(0), m_precision(undefined_value)
+    // nd change m_is_unicode(true)
+		m_is_nullable(true), m_is_unicode(true), m_maxLength(undefined_value), m_scale(0), m_precision(undefined_value)
 	{
 	}
 
@@ -248,7 +250,8 @@ public:
     }
 
     edm_property_type(const ::odata::utility::string_t& name, bool is_nullable, std::shared_ptr<edm_named_type> type) : 
-        m_name(name), m_is_nullable(is_nullable), m_type(type), m_is_unicode(false), m_maxLength(undefined_value), m_scale(0), m_precision(undefined_value)
+    // nd change m_is_unicode(true)
+        m_name(name), m_is_nullable(is_nullable), m_type(type), m_is_unicode(true), m_maxLength(undefined_value), m_scale(0), m_precision(undefined_value)
     {
     }
 
@@ -293,6 +296,22 @@ public:
     const ::odata::utility::string_t& default_value() const
     {
         return m_default;
+    }
+
+    bool is_unicode() const {
+	    return m_is_unicode;
+    }
+
+    unsigned int get_max_length() const {
+	    return m_maxLength;
+    }
+
+    unsigned int get_scale() const {
+	    return m_scale;
+    }
+
+    unsigned int get_precision() const {
+	    return m_precision;
     }
 
 private:
@@ -626,6 +645,10 @@ public:
 		return m_param_name;
 	}
 
+	bool is_nullable() const {
+		return m_is_nullable;
+	}
+
 private:
 	friend class edm_operation_type;
 
@@ -692,6 +715,10 @@ public:
 	bool is_composable()
 	{
 		return m_is_composable;
+	}
+// nd change getter for path
+	odata::utility::string_t get_path() const {
+		return m_path;
 	}
 
 private:
