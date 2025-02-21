@@ -370,8 +370,10 @@ void edm_model_reader::_process_property()
         bool is_nullable = false;
         std::shared_ptr<edm_named_type> type;
         unsigned int max_length = undefined_value;
-        bool is_unicode = false;
-	    unsigned int scale = undefined_value;
+		// nd change standard want true not false
+		bool is_unicode = true;
+		// nd change standard wont 0
+	    unsigned int scale = 0;
 	    unsigned int precision = undefined_value;
 
 		while (move_to_next_attribute())

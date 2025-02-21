@@ -33,6 +33,8 @@ set(ODATACPP_LIBRARY_SOURCES
   edm/edm_model.cpp
   edm/edm_model_utility.cpp
   edm/edm_type.cpp
+  core/odata_message_writer.cpp
+  edm/edm_model_writer.cpp
   )
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNINGS} -Werror -pedantic")
@@ -41,13 +43,14 @@ add_library(${ODATACPP_LIBRARY} ${ODATACPP_LIBRARY_SOURCES})
 message(STATUS "Boost_FRAMEWORK= ${Boost_FRAMEWORK}")
 message(STATUS "Boost_LOCALE_LIBRARY= ${Boost_LOCALE_LIBRARY}")
 message(STATUS "Boost_SYSTEM_LIBRARY= ${Boost_SYSTEM_LIBRARY}")
-target_link_libraries(${ODATACPP_LIBRARY}
+target_link_libraries(${ODATACPP_LIBRARY} PUBLIC
   ${LIBXML2_LIBRARIES}
   ${Boost_FRAMEWORK}
   ${Boost_LOCALE_LIBRARY}
   ${Boost_SYSTEM_LIBRARY}
   ${EXTRALINKS}
   )
+target_link_libraries(${ODATACPP_LIBRARY} PUBLIC iconv)
 
 # Portions specific to odatacpp binary versioning.
 set (ODATACPP_VERSION_MAJOR 1)

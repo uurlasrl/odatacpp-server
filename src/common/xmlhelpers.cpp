@@ -364,6 +364,8 @@ namespace odata { namespace edm {
 #else // LINUX
         m_writer = xmlNewTextWriterDoc(&m_doc, 0);
         m_stream = &stream;
+// nd change
+        xmlTextWriterStartDocument(m_writer, "1.0", "UTF-8", nullptr);
 #endif
     }
 
@@ -410,6 +412,20 @@ namespace odata { namespace edm {
         }
 #else
 
+#ifdef TARGET_OS_OSX
+            // nd change
+            xmlChar* valueXmlName = convert_to_xmlchar(elementName.c_str());
+            if (elementPrefix.empty() && namespaceName.empty())
+            {
+                xmlTextWriterStartElement(m_writer, valueXmlName);
+            }
+            else
+            {
+                xmlChar* valueXmlPrefix = elementPrefix.empty() ? NULL : convert_to_xmlchar(elementPrefix.c_str());
+                xmlChar* valueXmlNamespace = namespaceName.empty() ? NULL : convert_to_xmlchar(namespaceName.c_str());
+                xmlTextWriterStartElementNS(m_writer, valueXmlPrefix, valueXmlName, valueXmlNamespace);
+            }
+#else
         xmlChar* valueXmlName = convert_to_xmlchar(::odata::utility::conversions::to_utf8string(elementName).c_str());
         if (elementPrefix.empty() && namespaceName.empty())
         {
@@ -421,6 +437,8 @@ namespace odata { namespace edm {
             xmlChar* valueXmlNamespace = namespaceName.empty() ? NULL : convert_to_xmlchar(::odata::utility::conversions::to_utf8string(namespaceName).c_str());
             xmlTextWriterStartElementNS(m_writer, valueXmlPrefix, valueXmlName, valueXmlNamespace);
         }
+#endif
+
 #endif
     }
 
@@ -510,6 +528,22 @@ namespace odata { namespace edm {
             throw std::runtime_error(msg);
         }
 #else
+
+#ifdef TARGET_OS_OSX
+// nd change
+            xmlChar* nameXml = convert_to_xmlchar(name.c_str());
+            xmlChar* valueXml = convert_to_xmlchar(value.c_str());
+            if (prefix.empty() && namespaceUri.empty())
+            {
+                xmlTextWriterWriteAttribute(m_writer, nameXml, valueXml);
+            }
+            else
+            {
+                xmlChar* valueXmlPrefix = prefix.empty() ? NULL : convert_to_xmlchar(prefix.c_str());
+                xmlChar* valueXmlNamespace = namespaceUri.empty() ? NULL : convert_to_xmlchar(namespaceUri.c_str());
+                xmlTextWriterWriteAttributeNS(m_writer, valueXmlPrefix, nameXml, valueXmlNamespace, valueXml);
+            }
+#else
         xmlChar* nameXml = convert_to_xmlchar(::odata::utility::conversions::to_utf8string(name).c_str());
         xmlChar* valueXml = convert_to_xmlchar(::odata::utility::conversions::to_utf8string(value).c_str());
         if (prefix.empty() && namespaceUri.empty())
@@ -522,6 +556,8 @@ namespace odata { namespace edm {
             xmlChar* valueXmlNamespace = namespaceUri.empty() ? NULL : convert_to_xmlchar(::odata::utility::conversions::to_utf8string(namespaceUri).c_str());
             xmlTextWriterWriteAttributeNS(m_writer, valueXmlPrefix, nameXml, valueXmlNamespace, valueXml);
         }
+#endif
+
 #endif
     }
 

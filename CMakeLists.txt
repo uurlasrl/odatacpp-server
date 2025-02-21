@@ -15,6 +15,7 @@ set(WARNINGS)
 
 # Platform (not compiler) specific settings
 if(UNIX) # This includes OSX
+  cmake_policy(SET CMP0167 OLD)
   find_package(Boost REQUIRED COMPONENTS locale filesystem system)
   find_package(LibXml2 REQUIRED)
 
@@ -67,8 +68,11 @@ set(ODATACPP_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 set(ODATACPP_LIBRARY ${LIB}odata-library CACHE INTERNAL "library ODATA")
 
 # Everything in the project needs access to the odatacpp include directories
-include_directories(${ODATACPP_INCLUDE_DIRS})
+#include_directories(${ODATACPP_INCLUDE_DIRS})
 
 add_subdirectory(src)
 
+target_include_directories(${LIB}odata-library PUBLIC ${ODATACPP_INCLUDE_DIRS})
+
 add_subdirectory(tests)
+

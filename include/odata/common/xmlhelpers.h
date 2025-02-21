@@ -47,7 +47,16 @@
 #include "odata/common/basic_types.h"
 
 
+// nd change
+#ifdef TARGET_OS_OSX
+
+#define convert_to_xmlchar(b) const_cast<unsigned char*>(reinterpret_cast<const unsigned char*>(b))
+
+#else
+
 #define convert_to_xmlchar(b) const_cast<unsigned char*>(reinterpret_cast<const unsigned char*>(std::move(b)));
+
+#endif
 
 namespace odata { namespace edm {
 

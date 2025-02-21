@@ -64,7 +64,8 @@ namespace odata { namespace core
             stream << U("\n");
 
             stream << U("HTTP/1.1 ") << (*part)->get_status_code() << U(" ") << (*part)->get_status_message() << U("\n");
-            for(auto header = (*part)->get_headers().cbegin(); header != (*part)->get_headers().cend(); header++)
+            const auto& headers = (*part)->get_headers();
+            for(auto header = headers.cbegin(); header != headers.cend(); header++)
             {
                 stream << header->first << U(": ") <<header->second << U("\n");
             }

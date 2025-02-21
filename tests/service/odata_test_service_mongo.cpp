@@ -295,7 +295,7 @@ const char* test_edm_model =
 	service_document->add_service_document_element(std::make_shared<odata_service_document_element>(U("Airports"), U("Airports"), ENTITY_SET));
 
 	std::wstring address = U("http://localhost:4789");
-
+// ricordati di questo punto nd
     odata_test_service listener(address, model, service_document);
     listener.open().wait();
 
