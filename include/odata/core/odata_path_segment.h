@@ -10,8 +10,8 @@
 #include "odata/edm/odata_edm.h"
 #include "odata/core/odata_primitive_value.h"
 
-namespace odata { namespace core
-{
+namespace odata {
+	namespace core {
 
 namespace odata_path_segment_type {
 enum {
