@@ -570,7 +570,9 @@ public:
 	{
 		return m_naviagtion_type.lock();
 	}
-
+	std::string get_navigation_partner_name() const {
+		return m_partner_name;
+	}
 	void set_navigation_type(const std::shared_ptr<edm_named_type>& naviagtion_type)
 	{
 		m_naviagtion_type = naviagtion_type;

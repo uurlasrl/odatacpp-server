@@ -392,7 +392,9 @@ namespace odata {
         void edm_model_writer::write_operation_import(std::shared_ptr<edm_operation_import> operation_import) {
             write_start_element(operation_import->get_operation_import_kind() == OperationImportKind::FunctionImport ? U("FunctionImport") : U("ActionImport"));
             write_attribute_string(U(""), U("Name"), U(""), operation_import->get_name());
-            write_attribute_string(U(""), U("EntitySet"), U(""), operation_import->get_entity_set_name());
+            write_attribute_string(U(""), operation_import->get_operation_import_kind() == OperationImportKind::FunctionImport ? U("Function"):U("Action"), U(""), operation_import->get_operation_name());
+            if (!operation_import->get_entity_set_name().empty())
+                write_attribute_string(U(""), U("EntitySet"), U(""), operation_import->get_entity_set_name());
 
             write_end_element();
         }
