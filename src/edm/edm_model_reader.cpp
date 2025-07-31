@@ -112,7 +112,7 @@ void edm_model_reader::handle_begin_element(const ::odata::utility::string_t& el
 	{
 		::odata::utility::string_t name;
 		::odata::utility::string_t entity_set_path;
-		bool is_in_service_document;
+		bool is_in_service_document = false;
 		OperationImportKind operation_import_kind = elementName == U("FunctionImport") ? OperationImportKind::FunctionImport : OperationImportKind::ActionImport;
 		::odata::utility::string_t operation_name;
 

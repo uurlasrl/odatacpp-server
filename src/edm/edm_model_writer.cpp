@@ -300,6 +300,7 @@ namespace odata {
                         auto structured_type = std::dynamic_pointer_cast<edm::edm_complex_type>(prp);
                         write_end_element();
                     }
+                    break;
                     case edm::edm_type_kind_t::Entity:{
                         auto entity_type = std::dynamic_pointer_cast<edm::edm_entity_type>(prp);
                         write_end_element();

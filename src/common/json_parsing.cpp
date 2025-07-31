@@ -1028,7 +1028,7 @@ std::unique_ptr<odata::utility::json::details::_Value> JSON_Parser<CharType>::_P
             {
                 auto value = utility::details::make_unique<odata::utility::json::details::_String>(std::move(tkn.string_val), tkn.has_unescape_symbol);
                 GetNextToken(tkn);
-                return std::move(value);
+                return value;//std::move(value);
             }
 
         case JSON_Parser<CharType>::Token::TKN_IntegerLiteral:
@@ -1040,20 +1040,20 @@ std::unique_ptr<odata::utility::json::details::_Value> JSON_Parser<CharType>::_P
                     value = utility::details::make_unique<odata::utility::json::details::_Number>(tkn.uint64_val);
 
                 GetNextToken(tkn);
-                return std::move(value);
+                return value;//std::move(value);
             }
 
         case JSON_Parser<CharType>::Token::TKN_NumberLiteral:  
             {
                 auto value = utility::details::make_unique<odata::utility::json::details::_Number>(tkn.double_val);
                 GetNextToken(tkn);
-                return std::move(value);
+                return value;//std::move(value);
             }
         case JSON_Parser<CharType>::Token::TKN_BooleanLiteral:
             {
                 auto value = utility::details::make_unique<odata::utility::json::details::_Boolean>(tkn.boolean_val);
                 GetNextToken(tkn);
-                return std::move(value);
+                return value;//std::move(value);
             }
         case JSON_Parser<CharType>::Token::TKN_NullLiteral:
             {

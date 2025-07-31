@@ -29,8 +29,17 @@ enum OperationImportKind
 class edm_operation_import
 {
 public:
-	edm_operation_import(::odata::utility::string_t name, ::odata::utility::string_t operation_name, ::odata::utility::string_t entity_set_path, bool is_in_service_document, OperationImportKind operation_import_kind) :
-		m_name(name), m_operation_name(operation_name), m_entity_set_path(entity_set_path), m_is_in_service_document(is_in_service_document), m_operation_import_kind(operation_import_kind)
+	edm_operation_import(
+		::odata::utility::string_t name,
+		::odata::utility::string_t operation_name,
+		::odata::utility::string_t entity_set_path,
+		bool is_in_service_document,
+		OperationImportKind operation_import_kind) :
+		m_name(name),
+		m_operation_name(operation_name),
+		m_entity_set_path(entity_set_path),
+		m_is_in_service_document(is_in_service_document),
+		m_operation_import_kind(operation_import_kind)
 	{
 		m_operation_type = nullptr;
 	}
@@ -72,7 +81,7 @@ private:
 	::odata::utility::string_t m_operation_name;
 	std::shared_ptr<edm_operation_type> m_operation_type;
 	::odata::utility::string_t m_entity_set_path;
-	bool m_is_in_service_document;
+	bool m_is_in_service_document = false;
 	OperationImportKind m_operation_import_kind;
 };
 

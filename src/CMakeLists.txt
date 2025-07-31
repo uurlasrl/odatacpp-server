@@ -50,7 +50,7 @@ target_link_libraries(${ODATACPP_LIBRARY} PUBLIC
   ${Boost_SYSTEM_LIBRARY}
   ${EXTRALINKS}
   )
-target_link_libraries(${ODATACPP_LIBRARY} PUBLIC iconv)
+target_link_libraries(${ODATACPP_LIBRARY} PUBLIC Iconv::Iconv)
 
 # Portions specific to odatacpp binary versioning.
 set (ODATACPP_VERSION_MAJOR 1)

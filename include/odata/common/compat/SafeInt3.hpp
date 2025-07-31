@@ -3239,25 +3239,22 @@ public:
             return SafeIntNoError;
         }
 
-        if( u <= (unsigned __int64)IntTraits< T >::maxInt )
-        {
+        if( u <= (unsigned __int64)IntTraits< T >::maxInt ){
             // Else u can safely be cast to T
             if( CompileConst< sizeof( T ) < sizeof( __int64 )>::Value() )
                 result = (T)( (int)t/(int)u );
             else
                 result = (T)((__int64)t/(__int64)u);
-        }
-        else // Corner case
-            if( t == IntTraits< T >::minInt && u == (unsigned __int64)IntTraits< T >::minInt )
-            {
+        }else{
+            // Corner case
+            if( t == IntTraits< T >::minInt && u == (unsigned __int64)IntTraits< T >::minInt ){
                 // Min int divided by it's own magnitude is -1
                 result = -1;
-            }
-            else
-            {
+            }else{
                 result = 0;
             }
-            return SafeIntNoError;
+        }
+        return SafeIntNoError;
     }
 
     template < typename E >
@@ -5393,10 +5390,15 @@ public:
         m_int = 0;
     }
 
+    constexpr SafeInt(const SafeInt<long unsigned int>& other) noexcept
+        : m_int(other.m_int) {
+    }
+
+
     // Having a constructor for every type of int 
     // avoids having the compiler evade our checks when doing implicit casts - 
     // e.g., SafeInt<char> s = 0x7fffffff;
-    SafeInt( const T& i ) throw()
+    explicit SafeInt( const T& i ) throw()
     {
         /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         //always safe
@@ -5404,21 +5406,21 @@ public:
     }
 
     // provide explicit boolean converter
-    SafeInt( bool b ) throw()
+    explicit SafeInt( bool b ) throw()
     {
         /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         m_int = (T)( b ? 1 : 0 );
     }
 
     template < typename U > 
-    SafeInt(const SafeInt< U, E >& u)
+    explicit SafeInt(const SafeInt< U, E >& u)
     {
         /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         *this = SafeInt< T, E >( (U)u );
     }
 
     template < typename U > 
-    SafeInt( const U& i )
+    explicit SafeInt( const U& i )
     {
         /* nd - replace C_ASSERT to */static_assert( NumericType< T >::isInt );
         // SafeCast will throw exceptions if i won't fit in type T
