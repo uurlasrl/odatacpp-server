@@ -567,9 +567,11 @@ utility::string_t datetime::to_string(date_format format) const
         char datetime_str[max_dt_length+1] = {0};
         strftime(datetime_str, sizeof(datetime_str), "%Y-%m-%dT%H:%M:%S", &datetime);
         // now print this buffer into the output buffer
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-truncation"
         snprintf(output, sizeof(output), "%s%sZ", datetime_str, buf);
-    }
-    else
+#pragma GCC diagnostic pop
+    } else
     {
         strftime(output, sizeof(output), 
             format == RFC_1123 ? "%a, %d %b %Y %H:%M:%S GMT" : "%Y-%m-%dT%H:%M:%SZ",
